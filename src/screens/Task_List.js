@@ -9,6 +9,32 @@ import today_Image from "../../assets/imgs/today.jpg"
 import Task from "../components/Task"
 
 export default class TaskList extends Component {
+
+    state = {
+        show_done_task: true,
+        visible_task: [],
+        tasks: [{
+            id: Math.random(),
+            description:"Estudar para prova DDM I",
+            estimate_at:new Date(),
+            done_at: new Date()
+        },
+        {
+            id:Math.random(),
+            description:"Fazer a prova de DDM I",
+            estimate_at: moment(new Date()).add(5, "days"),
+            done_at: null
+        }]
+    }
+
+togle_task = task_id => {
+    const tasks = [...this.state.tasks]
+    tasks.forEach(task => {
+        if(task.id === task_id){
+            task.done_at = task.done_at ? null : new Date()
+        }
+    })
+}
     render() {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
         return (
@@ -20,16 +46,16 @@ export default class TaskList extends Component {
                     </View>
                 </ImageBackground>
                 <View style={styles.taskList}>
-                    <Task
+                    {/* <{Task
                         description="Estudar para prova DDM I"
                         estimate_at={new Date()}
                         done_at={new Date()}
                     />
                     <Task 
                         description="Fazer a prova de DDM I"
-                        estimate_at={new Date()}
+                        estimate_at={moment(new Date()).add(5, "days")}
                         done_at={null}
-                    />
+                    />} */}
                 </View>
             </View>
         )
